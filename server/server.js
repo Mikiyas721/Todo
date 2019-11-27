@@ -20,7 +20,7 @@ let {Todo} = require('./models/todo');
 let {User} = require('./models/user');
 
 let app = express();
-
+const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.post('/todos', (request, response) => {
@@ -56,8 +56,8 @@ app.get('/todos/:id', (request, response) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log(`Connected to port 3000`);
+app.listen(port, () => {
+    console.log(`Connected to port ${port}`);
 });
 
 
