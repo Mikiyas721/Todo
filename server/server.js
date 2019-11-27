@@ -13,6 +13,7 @@
  **/
 let express = require('express');
 let bodyParser = require('body-parser');
+let {ObjectId} = require('mongodb');
 
 let {mongoose} = require('./db/mongoose');
 let {Todo} = require('./models/todo');
@@ -40,6 +41,19 @@ app.get('/todos', (request, response) => {
     }, (error) => {
         response.status(404).send(error);
     });
+});
+
+app.get('/todos/:id', (request, response) => {
+    let id = request.params.id;
+    if (ObjectId.isValid(id)) {
+        Todo.findById(id).then((result) => {
+            response.send(result);
+        }, (error) => {
+            response.status(404).error(error);
+        });
+    } else {
+        response.status(404).send();
+    }
 });
 
 app.listen(3000, () => {
