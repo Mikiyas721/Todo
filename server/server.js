@@ -74,6 +74,19 @@ app.delete('/todos/:id', (request, response) => {
     }
 });
 
+app.patch('/todos/:id', (request, response) => {
+    let id = request.params.id;
+    if (ObjectId.isValid(id)) {
+        Todo.findByIdAndUpdate(id, {$set: request.body}).then((result) => {
+            response.send(result);
+        }, (error) => {
+            response.status(404).error(error);
+        });
+    } else {
+        response.status(404).send();
+    }
+});
+
 app.listen(port, () => {
     console.log(`Connected to port ${port}`);
 });
