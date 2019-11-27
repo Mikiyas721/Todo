@@ -11,6 +11,11 @@
  *  -- we can get the request using request.body()
  *  A best practice when send a response is to send it in an object as a field, this way we can send other things as well
  **/
+/** create -- POST
+ *  read -- GET
+ *  Update -- PATCH
+ *  Delete -- DELETE
+ **/
 let express = require('express');
 let bodyParser = require('body-parser');
 let {ObjectId} = require('mongodb');
@@ -47,6 +52,19 @@ app.get('/todos/:id', (request, response) => {
     let id = request.params.id;
     if (ObjectId.isValid(id)) {
         Todo.findById(id).then((result) => {
+            response.send(result);
+        }, (error) => {
+            response.status(404).error(error);
+        });
+    } else {
+        response.status(404).send();
+    }
+});
+
+app.delete('/todos/:id', (request, response) => {
+    let id = request.params.id;
+    if (ObjectId.isValid(id)) {
+        Todo.findByIdAndRemove(id).then((result) => {
             response.send(result);
         }, (error) => {
             response.status(404).error(error);

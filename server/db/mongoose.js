@@ -1,5 +1,5 @@
 /**
- * Different Mongoose Queries:
+ * Different Mongoose Queries for Read Operation(GET):
  * 1.find()
  * 2.findOne()
  * The above two methods take an object with the _id prop set
@@ -9,6 +9,11 @@
  * An error if fired if the id is invalid.The ObjectId in the mongodb library validates id
  **/
 
+/** Different Mongoose Queries for delete Operation(DELETE):
+ * 1. remove()
+ * 2. findOneAndRemove()
+ * 3. findByIDAndRemove()
+ **/
 let mongoose = require('mongoose');
 
 mongoose.promise = global.promise;
